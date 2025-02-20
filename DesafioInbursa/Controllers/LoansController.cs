@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioInbursa.Controllers
@@ -8,6 +9,7 @@ namespace DesafioInbursa.Controllers
     [ApiController]
     [Route("api/loans")]
     [Produces("application/json")]
+    [Authorize]
     public class LoanController : ControllerBase
     {
         private readonly ILoanService _loanService;
@@ -27,6 +29,7 @@ namespace DesafioInbursa.Controllers
         [HttpPost("simulate")]
         [ProducesResponseType(typeof(LoanSimulationResult), 200)]
         [ProducesResponseType(400)]
+        [Authorize]
         public async Task<IActionResult> SimulateLoan([FromBody] LoanViewModel loan)
         {
             if (!ModelState.IsValid)
